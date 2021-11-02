@@ -15,35 +15,28 @@ closebtn.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-function checkedRadioBtn() {
-  const bambooCard = document.querySelector(".bamboo-card");
-  const bambooHidden = document.querySelector(".bamboo-hidden-conntainer");
-  const blackCard = document.querySelector(".black-card");
-  const blackHidden = document.querySelector(".black-hidden-conntainer");
-  const noRewardCard = document.querySelector(".noReward-card");
-  const noRewardHidden = document.querySelector(".no-reward-hidden-conntainer");
+function updateCardsOnRadioButtons(activeClass, inactives) {
+  const activeCard = document.querySelector(`${activeClass}-card`);
+  const activeHidden = document.querySelector(`${activeClass}-hidden-conntainer`);
 
+  activeCard.style.border = "1px solid var(--mint)";
+  activeHidden.style.display = "flex";
+
+  inactives.forEach((inactiveClass) => {
+    const inactiveCard = document.querySelector(`${inactiveClass}-card`);
+    const inactiveHidden = document.querySelector(`${inactiveClass}-hidden-conntainer`);
+    inactiveCard.style.border = "1px solid rgba(0, 0, 0, 0.15)";
+    inactiveHidden.style.display = "none";
+  });
+}
+
+function checkedRadioBtn() {
   if (radioBamboo.checked) {
-    bambooCard.style.border = "1px solid var(--mint)";
-    bambooHidden.style.display = "flex";
-    blackCard.style.border = "1px solid rgba(0, 0, 0, 0.15)";
-    blackHidden.style.display = "none";
-    noRewardCard.style.border = "1px solid rgba(0, 0, 0, 0.15)";
-    noRewardHidden.style.display = "none";
+    updateCardsOnRadioButtons(".bamboo", [".black", ".noReward"]);
   } else if (radioBlackEdition.checked) {
-    blackCard.style.border = "1px solid var(--mint)";
-    blackHidden.style.display = "flex";
-    bambooCard.style.border = "1px solid rgba(0, 0, 0, 0.15)";
-    bambooHidden.style.display = "none";
-    noRewardCard.style.border = "1px solid rgba(0, 0, 0, 0.15)";
-    noRewardHidden.style.display = "none";
+    updateCardsOnRadioButtons(".black", [".bamboo", ".noReward"]);
   } else if (radioNoReward.checked) {
-    noRewardCard.style.border = "1px solid var(--mint)";
-    noRewardHidden.style.display = "flex";
-    bambooCard.style.border = "1px solid rgba(0, 0, 0, 0.15)";
-    bambooHidden.style.display = "none";
-    blackCard.style.border = "1px solid rgba(0, 0, 0, 0.15)";
-    blackHidden.style.display = "none";
+    updateCardsOnRadioButtons(".noReward", [".bamboo", ".black"]);
   }
 }
 
@@ -82,7 +75,7 @@ let newTotal = totalBackedNum;
 let newTotalBackers = totalBackersNum;
 
 //dugmici za slanje pledge i otvarajne thanks modala
-const continueBtnNoReward = document.querySelector(".no-reward-btn-modal");
+const continueBtnNoReward = document.querySelector(".noReward-btn-modal");
 const continueBtnBamboo = document.querySelector(".bamboo-btn-modal");
 const continueBtnBlack = document.querySelector(".black-btn-modal");
 const thanksBtn = document.querySelector(".thanks-btn");
